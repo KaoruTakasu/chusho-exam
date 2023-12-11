@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { selectedAnswersState } from '../store/examDataStore';
 import * as data from '../data/exam';
 import { basePath } from '../../../next.config';
+import ConfirmModal from '../components/confirmModal';
 
 const BASE_PATH = basePath ? basePath : '';
 
@@ -34,7 +35,7 @@ export default function QuizPage() {
     useRecoilState(selectedAnswersState);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-  const router = useRouter();
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const defaultAnswers = demoQuizItems.map((item, index) => {
@@ -79,6 +80,10 @@ export default function QuizPage() {
 
     setScore(Math.round((correctCount / demoQuizItems.length) * 100));
 
+    setOpen(true);
+  };
+
+  const handleReturn = () => {
     setIsSubmitted(!isSubmitted);
   };
 
@@ -106,18 +111,21 @@ export default function QuizPage() {
           </div>
           <div className='mb-4 pr-4 pl-4 pt-4 pb-2 rounded-lg'>
             {item.image ? (
-              <Image
-                src={BASE_PATH + item.image}
-                width={'500'}
-                height={'300'}
-                alt='no-images'
-              />
+              <div className='flex items-center justify-center mb-4'>
+                <Image
+                  src={BASE_PATH + item.image}
+                  width={'500'}
+                  height={'300'}
+                  alt='no-images'
+                  className='flex'
+                />
+              </div>
             ) : (
               <div></div>
             )}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 pt-4 pb-4'>
               {item.options.map((option, optionIndex) => (
-                <label key={option} className='flex items-center gap-2'>
+                <label key={option} className='flex items-center gap-2 mb-2'>
                   <input
                     type='radio'
                     name={`question-${index}`}
@@ -127,13 +135,13 @@ export default function QuizPage() {
                     }
                     className='accent-blue-500'
                   />
-                  <span className='text-md mb-2'>{option}</span>
+                  <span className='text-md'>{option}</span>
                 </label>
               ))}
             </div>
             {isSubmitted ? (
               <div
-                className={`flex flex-col gap-2 mt-2 mb-4 p-4 border ${
+                className={`flex flex-col gap-2 mt-4 mb-4 p-4 border ${
                   selectedAnswers[index].isCorrect
                     ? 'border-blue-500'
                     : 'border-red-500'
@@ -180,12 +188,21 @@ export default function QuizPage() {
       ))}
 
       <div className='flex justify-center'>
-        <button
-          onClick={handleSubmit}
-          className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
-        >
-          採点
-        </button>
+        {!isSubmitted ? (
+          <button
+            onClick={handleSubmit}
+            className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
+          >
+            採点
+          </button>
+        ) : (
+          <button
+            onClick={handleReturn}
+            className='mt-4 px-4 py-2 bg-gray-400 text-white font-bold rounded hover:bg-gray-500'
+          >
+            回答に戻る
+          </button>
+        )}
       </div>
       <div className='flex items-baseline justify-center gap-2 mt-10 mb-4 p-4 rounded-lg'>
         <h1 className='text-xl flex items-center justify-center'>
@@ -197,6 +214,13 @@ export default function QuizPage() {
           </div>
         ) : null}
       </div>
+      {/* 確認モーダル */}
+      <ConfirmModal
+        open={open}
+        setOpen={setOpen}
+        isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
+      />
     </div>
   );
 }
