@@ -1,10 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { selectedAnswersState } from '../store/examDataStore';
 import * as data from '../data/exam';
+import { basePath } from '../../../next.config';
+
+const BASE_PATH = basePath ? basePath : '';
 
 // 問題と選択肢の型定義
 type QuizItem = {
@@ -96,8 +100,8 @@ export default function QuizPage() {
           </div>
           <div key={index} className='mb-4 p-4 rounded-lg'>
             {item.image ? (
-              <img
-                src={item.image}
+              <Image
+                src={BASE_PATH + item.image}
                 width={'500'}
                 height={'300'}
                 alt='no-images'
@@ -130,16 +134,16 @@ export default function QuizPage() {
                 } rounded-lg grid grid-flow-col grid-cols-12`}
               >
                 <div className='col-span-2 flex justify-center items-center'>
-                  <img
+                  <Image
                     src={
                       selectedAnswers[index].isCorrect
-                        ? correctPic
-                        : uncorrectPic
+                        ? BASE_PATH + correctPic
+                        : BASE_PATH + uncorrectPic
                     }
                     alt='no-image'
                     width={'100'}
                     height={'100'}
-                  ></img>
+                  />
                 </div>
                 <div className='col-span-10'>
                   <div
