@@ -18,10 +18,13 @@ type QuizItem = {
   from: string;
   correctAnswer: number;
   reason: string;
+  valid: boolean;
 };
 
 // デモ用の問題リスト
-const demoQuizItems: QuizItem[] = data.examData;
+const demoQuizItems: QuizItem[] = data.examData.filter(
+  (item) => item.valid == true
+);
 const correctPic = '/correct.png';
 const uncorrectPic = '/uncorrect.png';
 
@@ -74,7 +77,7 @@ export default function QuizPage() {
       if (isCorrect) correctCount++;
     });
 
-    setScore((correctCount / demoQuizItems.length) * 100);
+    setScore(Math.round((correctCount / demoQuizItems.length) * 100));
 
     setIsSubmitted(!isSubmitted);
   };
@@ -85,8 +88,11 @@ export default function QuizPage() {
         高須式 中小企業診断士 想定問題集
       </h1>
       {demoQuizItems.map((item, index) => (
-        <div key={index} className='mb-4 p-4 border border-gray-200 rounded-lg'>
-          <div key={index} className='mb-4 p-4 rounded-lg'>
+        <div
+          key={index}
+          className='mb-4 pr-4 pl-4 pt-4 border border-gray-200 rounded-lg'
+        >
+          <div className='mb-2 pr-4 pl-4 pt-4 pb-2 rounded-lg'>
             <div className='flex mb-3 text-2xl font-bold text-gray-600 lg:text-2xl'>
               問題 {index + 1}
             </div>
@@ -98,7 +104,7 @@ export default function QuizPage() {
             </div>
             <div className='text-sm mb-3'>（{item.from}）</div>
           </div>
-          <div key={index} className='mb-4 p-4 rounded-lg'>
+          <div className='mb-4 pr-4 pl-4 pt-4 pb-2 rounded-lg'>
             {item.image ? (
               <Image
                 src={BASE_PATH + item.image}
@@ -109,7 +115,7 @@ export default function QuizPage() {
             ) : (
               <div></div>
             )}
-            <div className='flex flex-col gap-2 mb-5'>
+            <div className='flex flex-col gap-2'>
               {item.options.map((option, optionIndex) => (
                 <label key={option} className='flex items-center gap-2'>
                   <input
@@ -163,7 +169,9 @@ export default function QuizPage() {
                     あなたの回答: {selectedAnswers[index].selectedNumber}
                   </div>
                   <div className='mb-2'>正解: {item.correctAnswer}</div>
-                  <div className='mb-2'>解説：{item.reason}</div>
+                  <div className='mb-2' style={{ whiteSpace: 'pre-line' }}>
+                    解説：{item.reason}
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -171,14 +179,6 @@ export default function QuizPage() {
         </div>
       ))}
 
-      <div className='flex flex-col gap-2 mt-2 mb-4 p-4 border border-blue-500 rounded-lg'>
-        <h1>あなたの得点：</h1>
-        {isSubmitted ? (
-          <div className='flex justify-center flex-col gap-2 mt-2'>
-            <h1 className='bold '>{score} 点</h1>
-          </div>
-        ) : null}
-      </div>
       <div className='flex justify-center'>
         <button
           onClick={handleSubmit}
@@ -186,6 +186,16 @@ export default function QuizPage() {
         >
           採点
         </button>
+      </div>
+      <div className='flex items-baseline justify-center gap-2 mt-10 mb-4 p-4 rounded-lg'>
+        <h1 className='text-xl flex items-center justify-center'>
+          あなたの得点：
+        </h1>
+        {isSubmitted ? (
+          <div className='flex items-center justify-center'>
+            <h1 className='text-5xl font-bold '>{score} 点</h1>
+          </div>
+        ) : null}
       </div>
     </div>
   );
