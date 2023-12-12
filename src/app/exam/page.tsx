@@ -8,6 +8,8 @@ import { selectedAnswersState } from '../store/examDataStore';
 import * as data from '../data/exam';
 import { basePath } from '../../../next.config';
 import ConfirmModal from '../components/confirmModal';
+import PointDisplayModal from '../components/pointDisplayModal';
+import Timer from '../components/timer';
 
 const BASE_PATH = basePath ? basePath : '';
 
@@ -36,6 +38,8 @@ export default function QuizPage() {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
+  const [openPointModal, setOpenPointModal] = useState<boolean>(false);
+  const [isTimerActive, setIsTimerActive] = useState<boolean>(true);
 
   useEffect(() => {
     const defaultAnswers = demoQuizItems.map((item, index) => {
@@ -89,8 +93,14 @@ export default function QuizPage() {
 
   return (
     <div className='p-4'>
+      {isTimerActive ? (
+        <div className='fixed w-1/12 h-20 items-center justify-center z-50 bottom-10 right-10 py-5 px-2 bg-gray-400 opacity-60 rounded-lg'>
+          <Timer setIsTimerActive={setIsTimerActive} />
+        </div>
+      ) : null}
+      <h1 className='text-3xl font-bold text-center mb-6'>高須式</h1>
       <h1 className='text-3xl font-bold text-center mb-6'>
-        高須式 中小企業診断士 想定問題集
+        中小企業診断士 想定問題集
       </h1>
       {demoQuizItems.map((item, index) => (
         <div
@@ -204,22 +214,31 @@ export default function QuizPage() {
           </button>
         )}
       </div>
-      <div className='flex items-baseline justify-center gap-2 mt-10 mb-4 p-4 rounded-lg'>
-        <h1 className='text-xl flex items-center justify-center'>
-          あなたの得点：
-        </h1>
-        {isSubmitted ? (
+      {isSubmitted ? (
+        <div className='flex items-baseline justify-center gap-2 mt-10 mb-4 p-4 rounded-lg'>
+          <h1 className='text-xl flex items-center justify-center'>
+            あなたの得点：
+          </h1>
+
           <div className='flex items-center justify-center'>
             <h1 className='text-5xl font-bold '>{score} 点</h1>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
       {/* 確認モーダル */}
       <ConfirmModal
         open={open}
         setOpen={setOpen}
         isSubmitted={isSubmitted}
         setIsSubmitted={setIsSubmitted}
+        setOpenPointModal={setOpenPointModal}
+        setIsTimerActive={setIsTimerActive}
+      />
+      {/* 得点モーダル */}
+      <PointDisplayModal
+        openPointModal={openPointModal}
+        setOpenPointModal={setOpenPointModal}
+        score={score}
       />
     </div>
   );
