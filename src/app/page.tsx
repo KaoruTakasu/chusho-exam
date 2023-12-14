@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
+import { examData } from './data/exam';
+import { initialSetMinutes } from './components/timer';
+import Image from 'next/image';
 
 export default function Example() {
   const router = useRouter();
@@ -12,10 +12,12 @@ export default function Example() {
     router.push('/exam');
   };
 
+  const examDataLength = examData.filter((item) => item.valid == true);
+
   return (
-    <div>
+    <div className='flex items-center justify-center'>
       <div
-        className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
+        className='absolute inset-x-0 -top-20 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
         aria-hidden='true'
       >
         <div
@@ -26,27 +28,37 @@ export default function Example() {
           }}
         />
       </div>
-      <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
-        <div className='text-center'>
-          <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-            高須式
-          </h1>
-          <br />
-          <h1 className='text-5xl font-bold tracking-tight text-gray-900 sm:text-5xl'>
-            中小企業診断士 想定問題集
-          </h1>
-          <p className='mt-6 text-lg leading-8 text-gray-600'>
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
-          </p>
-          <div className='mt-10 flex items-center justify-center gap-x-6'>
-            <button
-              onClick={handleSubmit}
-              className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
-            >
-              テストへ進む
-            </button>
+      <div className='flex justify-center py-30 sm:py-40 lg:py-50 w-full m-0 pl-0 pr-0'>
+        <div className='flex flex-row w-full h-full'>
+          <div className='text-center basis-1/2 px-10'>
+            <h1 className='2xl:text-6xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
+              高須式
+            </h1>
+            <br />
+            <h1 className='2xl:mb-20 lg:mb-10 2xl:text-5xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
+              中小企業診断士 CCS統一模試
+            </h1>
+            <p className='2xl:mt-15 lg:mt-10 2xl:text-lg lg:text-md leading-8 text-gray-600'>
+              試験問題 {examDataLength.length}問 　制限時間 {initialSetMinutes}
+              分
+            </p>
+            <p className='2xl:mt-4 lg:mt-2 2xl:text-lg lg:text-md leading-8 text-gray-600'>
+              「試験開始」の合図があるまで、この画面でお待ちください。
+            </p>
+            <p className='2xl:text-lg lg:text-md leading-8 text-gray-600'>
+              「試験」に進んだ後は、ブラウザの「戻る」ボタンは使用しないでください。
+            </p>
+            <div className='flex 2xl:mt-28 lg:mt-20 items-center justify-center gap-x-6'>
+              <button
+                onClick={handleSubmit}
+                className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
+              >
+                テストへ進む
+              </button>
+            </div>
+          </div>
+          <div className='flex items-center justify-center text-center basis-1/2 px-10'>
+            <Image src='/exam.png' alt='exam' width={'400'} height={'400'} />
           </div>
         </div>
       </div>

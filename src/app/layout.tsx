@@ -15,7 +15,7 @@ export default function RootLayout({
     <RecoilRoot>
       <html lang='en'>
         <body
-          className={`${inter.className} m-11 pr-10 pl-10 bg-background-main`}
+          className={`${inter.className} m-12 pr-10 pl-10 bg-background-main`}
         >
           {children}
         </body>
