@@ -4,9 +4,11 @@ type Props = {
   setIsTimerActive: Dispatch<SetStateAction<boolean>>;
 };
 
+export const initialSetMinutes = 10;
+
 export default function Timer(props: Props) {
   const { setIsTimerActive } = props;
-  const [minutes, setMinutes] = useState(10);
+  const [minutes, setMinutes] = useState(initialSetMinutes);
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {

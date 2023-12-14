@@ -100,7 +100,7 @@ export default function QuizPage() {
       ) : null}
       <h1 className='text-3xl font-bold text-center mb-6'>高須式</h1>
       <h1 className='text-3xl font-bold text-center mb-6'>
-        中小企業診断士 想定問題集
+        中小企業診断士　CCS統一模試
       </h1>
       {demoQuizItems.map((item, index) => (
         <div
