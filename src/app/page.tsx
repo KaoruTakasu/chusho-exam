@@ -3,7 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { examData } from './data/exam';
 import { initialSetMinutes } from './components/timer';
+import { basePath } from '../../next.config';
 import Image from 'next/image';
+
+const BASE_PATH = basePath ? basePath : '';
 
 export default function Example() {
   const router = useRouter();
@@ -58,7 +61,12 @@ export default function Example() {
             </div>
           </div>
           <div className='flex items-center justify-center text-center basis-1/2 px-10'>
-            <Image src='/exam.png' alt='exam' width={'400'} height={'400'} />
+            <Image
+              src={`${BASE_PATH}/exam.png`}
+              alt='exam'
+              width={'400'}
+              height={'400'}
+            />
           </div>
         </div>
       </div>
