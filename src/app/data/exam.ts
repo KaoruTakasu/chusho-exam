@@ -82,7 +82,7 @@ export const examData = [
     correctAnswer: 4,
     reason:
       '1:直接金融。2:それだけではない。3:証券化は資金調達手段の一種。4:その通り。',
-    valid: true,
+    valid: false,
   },
   {
     question:
@@ -229,7 +229,7 @@ export const examData = [
     reason:
       '1:NATの説明。DHCPはインターネットに接続するPCにIPアドレスなど必要な情報を割り当てるプロトコル。2:IPアドレスの説明。MACアドレスはLAN内で端末を一意に識別する番号\
       3:DHCPの説明。',
-    valid: true,
+    valid: false,
   },
   {
     question:
