@@ -64,8 +64,8 @@ export default function Example() {
             <Image
               src={`${BASE_PATH}/exam.png`}
               alt='exam'
-              width={'500'}
-              height={'500'}
+              width={'600'}
+              height={'600'}
             />
           </div>
         </div>
