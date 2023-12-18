@@ -34,24 +34,24 @@ export default function Example() {
       <div className='flex justify-center py-30 sm:py-40 lg:py-50 w-full m-0 pl-0 pr-0'>
         <div className='flex flex-row w-full h-full'>
           <div className='text-center basis-1/2 px-10'>
-            <h1 className='2xl:text-6xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
+            <h1 className='3xl:text-10xl 2xl:text-6xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
               高須式
             </h1>
             <br />
-            <h1 className='2xl:mb-20 lg:mb-10 2xl:text-5xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
+            <h1 className='3xl:mb-25 2xl:mb-20 lg:mb-10 3xl:text-8xl 2xl:text-5xl font-bold tracking-tight text-blue-600 lg:text-4xl'>
               中小企業診断士 CCS統一模試
             </h1>
-            <p className='2xl:mt-15 lg:mt-10 2xl:text-lg lg:text-md leading-8 text-gray-600'>
+            <p className='3xl:mt-20 2xl:mt-15 lg:mt-10 3xl:text-xl 2xl:text-lg lg:text-md leading-8 text-gray-600'>
               試験問題 {examDataLength.length}問 　制限時間 {initialSetMinutes}
               分
             </p>
-            <p className='2xl:mt-4 lg:mt-2 2xl:text-lg lg:text-md leading-8 text-gray-600'>
+            <p className='3xl:mt-10 2xl:mt-4 lg:mt-2 3xl:text-xl 2xl:text-lg lg:text-md leading-8 text-gray-600'>
               「試験開始」の合図があるまで、この画面でお待ちください。
             </p>
-            <p className='2xl:text-lg lg:text-md leading-8 text-gray-600'>
+            <p className='3xl:text-xl 2xl:text-lg lg:text-md leading-8 text-gray-600'>
               「試験」に進んだ後は、ブラウザの「戻る」ボタンは使用しないでください。
             </p>
-            <div className='flex 2xl:mt-28 lg:mt-20 items-center justify-center gap-x-6'>
+            <div className='flex 3xl:mt-30 2xl:mt-28 lg:mt-20 items-center justify-center gap-x-6'>
               <button
                 onClick={handleSubmit}
                 className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
@@ -64,8 +64,8 @@ export default function Example() {
             <Image
               src={`${BASE_PATH}/exam.png`}
               alt='exam'
-              width={'400'}
-              height={'400'}
+              width={'500'}
+              height={'500'}
             />
           </div>
         </div>
