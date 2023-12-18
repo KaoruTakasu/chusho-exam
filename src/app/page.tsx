@@ -56,7 +56,7 @@ export default function Example() {
                 onClick={handleSubmit}
                 className='mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600'
               >
-                テストへ進む
+                試験へ進む
               </button>
             </div>
           </div>
